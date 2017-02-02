@@ -9,8 +9,8 @@ const SHIT_SIZE_RAND_MAX = 10
 const SHIT_COLOUR = Color({ r: 139, g: 69, b: 19 })
 const SHIT_COLOUR_RAND_SHADE_MIN = 0.5
 const SHIT_COLOUR_RAND_SHADE_MAX = 0.7
-const SHIT_ALPHA_RAND_MIN = 0.5
-const SHIT_ALPHA_RAND_MAX = 0.7
+const SHIT_ALPHA_RAND_MIN = 0.4
+const SHIT_ALPHA_RAND_MAX = 0.6
 
 export default class Canvas {
   constructor({ element }) {
