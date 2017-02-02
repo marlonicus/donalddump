@@ -17,7 +17,7 @@ export default class Canvas {
   }
   
   setBrushProperties({ context }) {
-    context.strokeStyle = `#000`
+    context.strokeStyle = `#fff`
     context.lineJoin = `round`
     context.lineWidth = 20
     context.lineCap = `round`
@@ -30,7 +30,7 @@ export default class Canvas {
   
   draw({ context }) {
     const { state, previousState } = this
-    const { shouldDraw } = state
+    const { shouldDraw, x, y } = state
     
     // Start new path
     if (shouldDraw && !previousState.shouldDraw) {
