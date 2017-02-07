@@ -1,9 +1,9 @@
 import { randomRange, take } from '../utils'
 import Color from 'color'
 
-const SHIT_AMOUNT_MIN = 20
-const SHIT_AMOUNT_MAX = 40
-const SHIT_SPREAD = 30
+const SHIT_AMOUNT_MIN = 30
+const SHIT_AMOUNT_MAX = 60
+const SHIT_SPREAD = 20
 const SHIT_SIZE_RAND_MIN = 1
 const SHIT_SIZE_RAND_MAX = 10
 const SHIT_COLOUR = Color({ r: 139, g: 69, b: 19 })
@@ -59,6 +59,7 @@ export default class Canvas {
   drawRandomCircle({ context, x, y }) {
     const randX = x + randomRange(0, SHIT_SPREAD) - SHIT_SPREAD / 2
     const randY = y + randomRange(0, SHIT_SPREAD) - SHIT_SPREAD / 2
+    this.setBrushProperties({ context })
     context.beginPath()
     context.moveTo(randX, randY)
     context.lineTo(randX, randY)
@@ -76,7 +77,7 @@ export default class Canvas {
     this.updateState({ x, y, shouldDraw})
     
     if (shouldDraw) {  
-      this.setBrushProperties({ context })
+
       this.draw({ context })
     }
   }

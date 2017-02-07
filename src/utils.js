@@ -10,6 +10,13 @@ const take = amount => {
   return constantArray.slice(0, amount)
 }
 
+const map = (obj, fn) => {
+  return Object.keys(obj).reduce((prev, curr) => {
+    prev[curr] = fn(obj[curr])
+    return prev
+  }, {})
+}
+
 export { 
   randomRange, 
   take 
