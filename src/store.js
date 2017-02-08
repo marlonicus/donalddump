@@ -1,7 +1,7 @@
 const { assign } = Object
 
 export default class Store {  
-  constructor({ reducers }) {
+  constructor({ reducers = {} } = {}) {
     const reducerKeys = Object.keys(reducers)
     assign(this, {
       reducers,
@@ -10,29 +10,49 @@ export default class Store {
     })
   }
   
-  getInitialStateObjectFromReducerKeys({ reducerKeys }) {
-    return reducerKeys.map(key => {
-      return { [key]: {} }
-    })
-  } 
+  mapStoreToStateObject(state, store) {
+    return {
+      ...state,
+      [store]: {},
+    }
+  }
 
-  dispatch({ type, value }) {
+  getInitialStateObjectFromReducerKeys({ reducerKeys = [] } = {}) {
+    return reducerKeys.reduce(this.mapStoreToStateObject, {})
+  }
+  
+  reduceStateObject({ state, store, action, reducer }) {
+    return {
+      ...state,
+      [store]: reducer({ 
+        state: state[store], 
+        action ,
+      }),
+    }
+  }
+
+  dispatch({ type, value } = {}) {
+    const { reducers, reducerKeys, state, reduceStateObject } = this
     const action = { type, value }
-    const nextState = this.reducerKeys.reduce((prev, curr) => {
-      return this.reducers[curr]({
-        state: this.state[curr], 
-        action,
-      })
-    }, {})
+    const nextState = reducerKeys.reduce((state, store) => reduceStateObject({ 
+      state, 
+      store, 
+      action,
+      reducer: reducers[store], 
+    }), { ...state })
     
-    console.group(`Action @ ${type}`)
-    console.log(`prev state - `, this.state)    
-    console.log(`action - `, action)
-    console.log(`next state - `, nextState)
-    console.groupEnd()
+    this.logStateChange({ type, state, action, nextState })
     
     assign(this, {
       state: nextState,
     })
+  }
+  
+  logStateChange({ type, state, action, nextState }) {
+    console.group(`Action @ ${type}`)
+    console.log(`prev state - `, state)    
+    console.log(`action - `, action)
+    console.log(`next state - `, nextState)
+    console.groupEnd()
   }
 }

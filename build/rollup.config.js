@@ -13,9 +13,10 @@ export default {
       jsnext: true,
     }),
     babel({
+      babelrc: false,
       exclude: `node_modules/**`,
       plugins: [`transform-object-rest-spread`],
-      presets: [`babel-preset-es2015-rollup`],
+      presets: [`es2015-rollup`],
     }),
     commonjs({
       include: `node_modules/**`,
