@@ -6,7 +6,6 @@ export default class Store {
     assign(this, {
       reducers,
       reducerKeys,
-      handleDispatch: action => this.handleDispatch(action),
       state: this.getInitialStateObjectFromReducerKeys({ reducerKeys }),
     })
   }
@@ -17,7 +16,7 @@ export default class Store {
     })
   } 
 
-  handleDispatch({ type, value }) {
+  dispatch({ type, value }) {
     const action = { type, value }
     const nextState = this.reducerKeys.reduce((prev, curr) => {
       return this.reducers[curr]({
@@ -35,9 +34,5 @@ export default class Store {
     assign(this, {
       state: nextState,
     })
-  }
-  
-  dispatch(action) {
-    this.handleDispatch(action)
   }
 }

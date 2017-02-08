@@ -67,12 +67,10 @@ export default class App {
   
   
   init() {
-    const {
-      dispatch
-    } = this.store
+    const { store } = this
     
-    window.addEventListener(`mousedown`, event => dispatch(mouseDown(event)))
-    window.addEventListener(`mouseup`, event => dispatch(mouseUp(event)))
+    window.addEventListener(`mousedown`, event => store.dispatch(mouseDown(event)))
+    window.addEventListener(`mouseup`, event => store.dispatch(mouseUp(event)))
     // this.onWindowResize()
     // window.addEventListener(`resize`, () => this.onWindowResize())
     // window.addEventListener(`mousedown`, event => this.onMouseDown(event))
