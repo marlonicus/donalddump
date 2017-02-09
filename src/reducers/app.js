@@ -1,10 +1,10 @@
-import { 
+import {
   MOUSE_DOWN,
   MOUSE_UP,
   MOUSE_MOVE,
 } from '../actions/app'
-// 
-// import { 
+//
+// import {
 //   ADD_AIRBOURNE_SHIT,
 // } from '../actions/shit-cannon'
 
@@ -16,7 +16,8 @@ const initialState = {
   },
 }
 
-export default ({ state = initialState, action }) => {
+export default ({ state = initialState, action = {} } = {}) => {
+	console.log(`no state set`, state)
   switch (action.type) {
     case MOUSE_DOWN:
       return {
@@ -26,16 +27,16 @@ export default ({ state = initialState, action }) => {
           ...action.value,
         },
       }
-      
+
     case MOUSE_UP:
       return {
-        ...state, 
+        ...state,
         isMouseDown: false,
         mousePosition: {
           ...action.value,
         },
       }
-      
+
     case MOUSE_MOVE:
       return {
         ...state,
@@ -44,4 +45,6 @@ export default ({ state = initialState, action }) => {
         },
       }
   }
+
+  return { ...state }
 }

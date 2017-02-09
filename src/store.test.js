@@ -8,35 +8,35 @@ beforeEach(() => {
 
 describe(`Store`, () => {
   describe(`mapStoreToStateObject()`, () => {
-    test(`Maps empty object to given key`, () => {
-      const result = component.mapStoreToStateObject({ 
-        foo: `foo` 
+    test(`Maps undefined to given key`, () => {
+      const result = component.mapStoreToStateObject({
+        foo: `foo`
       }, `bar`)
-      
+
       expect(result).toEqual({
         foo: `foo`,
-        bar: {},
+        bar: undefined,
       })
     })
   })
-  
+
   describe(`getInitialStateObjectFromReducerKeys()`, () => {
-    test(`Maps each reducer key to a new empty object`, () => {  
+    test(`Maps each reducer key to a new empty object`, () => {
       const reducerKeys = Object.keys({
         foo: `foo`,
         bar: `bar`,
         bax: `baz`,
       })
-      
+
       const result = component.getInitialStateObjectFromReducerKeys({ reducerKeys })
       expect(result).toEqual({
-        foo: {},
-        bar: {},
-        bax: {},
+        foo: undefined,
+        bar: undefined,
+        bax: undefined,
       })
     })
   })
-  
+
   describe(`reduceStateObject()`, () => {
     test(`Reduces store and maps it to new state object`, () => {
       const state = { foo: `bar`, baz: `boz` }
@@ -49,7 +49,7 @@ describe(`Store`, () => {
         baz: `boz`,
       })
     })
-    
+
     test(`Runs state object against reducer with correct params`, () => {
       const state = { foo: `bar`, baz: `boz` }
       const store = `foo`
